@@ -27,11 +27,9 @@ dependencies {
 }
 sourceSets {
     main {
-
         java {
-            srcDir "src"
+            srcDir "src/main/java"
         }
-
     }
 }
 
@@ -49,6 +47,8 @@ task FatJar(type: Jar) {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     exclude("com/example/hidden")
     exclude("com/example/PathingTesting")
+    exclude("META-INF/versions/**")
+    exclude("META-INF/MANIFEST.MF")
     with jar
 }
 
@@ -59,6 +59,8 @@ task FatJarWithHidden(type: Jar) {
     baseName = 'EthanVannPlugins'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude("META-INF/versions/**")
+    exclude("META-INF/MANIFEST.MF")
     with jar
 }
 
